@@ -4,13 +4,13 @@ console.log(Numero);
 const videojuegos = 'Los mejores juegos son de Mario';
 
 //Repite una cadena
-const texto = ' y estan en promocion!!!'.repeat(3);
+let texto = ' y estan en promocion!!!'.repeat(3);
 
 console.log(texto);
 console.log(`${videojuegos} ${texto}`);
 
 //Si se manda un double lo redondea
-texto = ' y estan en promocion!!!'.repeat(2.4);
+texto = ' y estan en promocion!!!'.repeat(2.6);
 
 console.log(texto);
 console.log(`${videojuegos} ${texto}`);
