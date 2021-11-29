@@ -6,5 +6,5 @@ let total = 0;
 canasta.forEach( producto => total += producto.precio);
 console.log(total);
 
-let result = canasta.reduce( (total, producto) => total +producto.precio );
+let result = canasta.reduce( (total, producto) => total + producto.precio );
 console.log(result);
