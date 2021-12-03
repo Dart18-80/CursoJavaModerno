@@ -20,7 +20,18 @@ class Presupuesto {
     }
     nuevoGasto (gasto){
         this.gastos = [...this.gastos, gasto];
-        console.log(this.gastos);
+        this.calcularRestante();
+    }
+    calcularRestante(){
+        let total = 0; 
+        this.gastos.forEach(gasto => {
+            total += Number(gasto.cantidad);
+        });
+        this.restante = this.presupuesto - total;
+    }
+    eliminarGasto(id){
+        this.gastos = this.gastos.filter(gasto => gasto.id != id);
+        this.calcularRestante();
     }
 }
 
@@ -57,6 +68,9 @@ class UI {
         },3000);
     }
     agregarGastoListado(gastos){
+        //Limpiar el HTML
+        this.LimpiarHTML();
+
         //Iterar solo los gastos
         gastos.forEach(gasto => {
             const {cantidad, nombre, id} = gasto;
@@ -64,14 +78,57 @@ class UI {
             //Crear un li 
             const li = document.createElement('li');
             li.className = 'list-group-item d-flex justify-content-between aling-items-center'
-            li.setAttribute('data-id',id);
+            li.dataset.id = id;
 
             //Agregar un HTML del gasto 
+            li.innerHTML = `${nombre} <span class="badge badge-primary badge-pill">$${cantidad}</span>`
 
             //Boton para borrar el gasto 
+            const btnBorrar = document.createElement('button');
+            btnBorrar.classList.add('btn','btn-danger','borrar-gasto');
+            btnBorrar.innerHTML=`Borrar &times`;
+            btnBorrar.onclick= ()=>{
+                eliminarGasto(id);
+            };
+
+            li.appendChild(btnBorrar);
 
             //Agregar a HTML
+            gastoListado.appendChild(li);
         });
+    }
+    LimpiarHTML(){
+        while(gastoListado.firstChild){
+            gastoListado.removeChild(gastoListado.firstChild);
+        }        
+    }
+
+    actualizarRestante(restante){
+        document.querySelector('#restante').textContent = restante;;
+    }
+
+    comprobarPresupuesto(presupuestoObj){
+        const { presupuesto, restante} = presupuestoObj;
+        const restanteDiv = document.querySelector('.restante');
+
+        if((presupuesto / 4) > restante){
+            restanteDiv.classList.remove('alert-success','alert-warning');
+            restanteDiv.classList.add('alert-danger');
+        }
+        else if((presupuesto/2)> restante){
+            restanteDiv.classList.remove('alert-success');
+            restanteDiv.classList.add('alert-warning');
+        }else{
+            restanteDiv.classList.remove('alert-danger','alert-warning');
+            restanteDiv.classList.add('alert-success');
+        }
+
+        //Si el total es menor a cero 
+        if(restante <= 0){
+            ui.imprimirAlerta('El presupuesto se ha agotado', 'error');
+
+            formulario.querySelector('button[type="submit"]').disabled = true;
+        }
     }
 }
 
@@ -121,9 +178,24 @@ function agregarGasto(e){
     ui.imprimirAlerta('Se ingreso correctamente el gasto','correcto');
 
     //Imprimir los gastos
-    const { gastos } = presupuesto;
+    const { gastos, restante } = presupuesto;
     ui.agregarGastoListado(gastos);
+
+    ui.actualizarRestante(restante);
+
+    ui.comprobarPresupuesto(presupuesto);
 
     //Reiniciar el formulario 
     formulario.reset();
+}
+
+function eliminarGasto(id){
+    presupuesto.eliminarGasto(id);
+    const { gastos, restante } = presupuesto
+
+    ui.agregarGastoListado(gastos);
+
+    ui.actualizarRestante(restante);
+
+    ui.comprobarPresupuesto(presupuesto);
 }

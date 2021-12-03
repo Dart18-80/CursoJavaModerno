@@ -36,3 +36,22 @@ h2 {
     font-size: 22px;
     margin-bottom:30px;
 }
+
+.badge {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 100%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    margin: auto;
+    border-radius: 0.25rem;
+}
+
+.badge-pill {
+    padding-right: 1.4em;
+    padding-left: 1.4em;
+    border-radius: 10rem;
+}
