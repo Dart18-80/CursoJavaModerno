@@ -1,4 +1,4 @@
-let pestaña = 'Pestaña 2';
+pestaña = 'Pestaña 2';
 console.log(pestaña);
 
 const weakset = new WeakSet();
@@ -9,6 +9,7 @@ const cliente = {
     edad:20,
 }
 
+//No se puede usar un foreach con los weakset 
 //Sintaxis invalida con WeakSet 
 const nombre = 'Juan';
 
