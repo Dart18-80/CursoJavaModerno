@@ -1,0 +1,25 @@
+{
+  "clientes": [
+    {
+      "nombre": "Alejandro",
+      "email": "diego@gmail.com",
+      "telefono": "48956731",
+      "empresa": "Mercadi",
+      "id": 2
+    },
+    {
+      "nombre": "Maria",
+      "email": "fer@gmail.com",
+      "telefono": "78945613",
+      "empresa": "Zara",
+      "id": 4
+    },
+    {
+      "nombre": "Diego",
+      "email": "diegoruiztrabanino13@gmail.com",
+      "telefono": "42308011",
+      "empresa": "ADS Live Media",
+      "id": 5
+    }
+  ]
+}
